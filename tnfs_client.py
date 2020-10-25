@@ -98,7 +98,7 @@ class MessageBase(object):
 	def fromWire(self, data):
 		conn_id, retry, command = struct.unpack("<HBB", data[:4])
 		if command != self.TnfsCmd:
-			raise ValueError, "Wire data isn't for this command"
+			raise ValueError("Wire data isn't for this command")
 
 		self.setSession(conn_id).setRetry(retry)
 		data_pos = self.do_ExtraFromWire(data[4:])
@@ -703,20 +703,20 @@ klasses = [
 Commands = {klass.TnfsCmd: klass for klass in klasses}
 
 def Test(klass, initfunc):
-	print "--" + klass.__name__
+	print("--" + klass.__name__)
 	m = klass()
 	initfunc(m)
 
 	w = m.toWire()
-	print repr(w)
+	print(repr(w))
 	m = klass()
 	m.fromWire(w)
 	w2 = m.toWire()
-	print repr(w2)
+	print(repr(w2))
 	if w == w2:
-		print "*Success*"
+		print("*Success*")
 	else:
-		raise RuntimeError, "Test of '%s' failed" % klass.__name__
+		raise RuntimeError("Test of '%s' failed" % klass.__name__)
 
 def RunTests():
 	Test(Mount, lambda m: m.setSession(0xbeef).setLocation("/home/tnfs").setUserPassword("username", "password"))

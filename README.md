@@ -1,3 +1,15 @@
+fujinet-tnfs-fuse
+=================
+
+An attempt to move TNFS FUSE driver into Python3 realm and currently supported FUSE bindings for Python.
+
+This is all thanks to the renewed TNFS interest from https://fujunet.online Atari 8-bit community.
+
+- [x] Client is running with Python3 now.
+- [ ] FUSE driver not working yet
+
+The original message from Author below:
+
 spectranet-tnfs-fuse
 ====================
 

@@ -1,8 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # The MIT License
 #
-# Copyright (c) 2012 Radu Cristescu
+# Copyright (c) 2012 Radu Cristescu, 2020 Pawel Kalinowski
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,6 @@ import fuse
 fuse.fuse_python_api = (0, 2)
 
 from fuse import Fuse
-from time import time
 
 import stat
 import os
@@ -34,16 +33,18 @@ import errno
 
 import tnfs_client
 
+
 def getParts(path):
 	if path == '/':
 		return [['/']]
 	else:
 		return path.split('/')
 
+
 class TNFS(Fuse):
 	def __init__(self, *args, **kw):
 		Fuse.__init__(self, *args, **kw)
-		print 'Init complete.'
+		print('Init complete.')
 
 	def main(self, *a, **kw):
 		self.file_class = TNFS_File
@@ -58,15 +59,14 @@ class TNFS(Fuse):
 		global TnfsSession
 
 		TnfsSession = tnfs_client.Session((address, port))
-		print 'TNFS Session started with id %d' % TnfsSession.session
-
+		print('TNFS Session started with id %d' % TnfsSession.session)
 
 	def getattr(self, path):
-		print '*** getattr', path
+		print('*** getattr', path)
 		st = fuse.Stat()
 		if path == "/":
 			st.st_nlink = 2
-			st.st_mode = stat.S_IFDIR | 0755
+			st.st_mode = stat.S_IFDIR | 0o0755
 		else:
 			reply, tnfs_st = TnfsSession.Stat(path)
 			if reply != 0:
@@ -77,7 +77,6 @@ class TNFS(Fuse):
 			st.st_atime = tnfs_st.atime
 			st.st_mtime = tnfs_st.mtime
 			st.st_ctime = tnfs_st.ctime
-
 		return st
 
 	def readdir(self, path, offset):
@@ -92,10 +91,12 @@ class TNFS(Fuse):
 		reply = TnfsSession.Rename(oldpath, newpath)
 		return -reply
 
+
 ## Freezes the mount point (tnfsd is not replying)
 #	def chmod(self, path, mode):
 #		reply = TnfsSession.ChMod(path, mode)
 #		return -reply
+
 
 class TNFS_File(object):
 	def __init__(self, path, flags, *mode):
@@ -133,9 +134,10 @@ class TNFS_File(object):
 			raise IOError(reply, os.strerror(reply))
 		return written
 
+
 if __name__ == "__main__":
 	fs = TNFS()
 	fs.multithreaded = 0
-	fs.parser.add_option(mountopt = "address", help = "<Address>[:<Port>] of the TNFS server. Port defaults to 16384 if not specified")
-	fs.parse(values = fs, errex = 1)
+	fs.parser.add_option(mountopt="address", help="<Address>[:<Port>] of the TNFS server. Port defaults to 16384 if not specified")
+	fs.parse(values=fs, errex=1)
 	fs.main()

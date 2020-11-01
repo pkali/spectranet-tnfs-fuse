@@ -8,6 +8,32 @@ This is all thanks to the renewed TNFS interest from https://fujunet.online Atar
 - [x] Client is running with Python3 now.
 - [ ] FUSE driver not working yet
 
+tnfs_client.py usage
+--------------------
+`python3 tnfs_client.py <tnfs-server> <tnfs-port>`
+
+Default `<tnfs-server>` is `vexed4.alioth.net`
+Default `<tnfs-port>` is `16384`
+
+Available commands:
+
+`ls [<path>]` - list directory contents
+
+`ls -l [<path>]` - detailed list
+
+`cd <path>` - change directory
+
+`pwd` - show current directory
+
+`mkdir <path>` - create directory
+
+`rmdir <path>` - delete directory
+
+`get <remote filename> [<local filename>]` - download from tnfs server
+
+`put <local filename> [<remote filename>]` - upload to tnfs server
+
+
 The original message from Author below:
 
 spectranet-tnfs-fuse

@@ -3,14 +3,14 @@ fujinet-tnfs-fuse
 
 An attempt to move TNFS FUSE driver into Python3 realm and currently supported FUSE bindings for Python.
 
-This is all thanks to the renewed TNFS interest from https://fujunet.online Atari 8-bit community.
+This is all thanks to the renewed TNFS interest from https://fujinet.online Atari 8-bit community.
 
 - [x] Client is running with Python3 now.
 - [ ] FUSE driver not working yet
 
 tnfs_client.py usage
 --------------------
-`python3 tnfs_client.py <tnfs-server> <tnfs-port>`
+`python3 tnfs_client.py [<tnfs-server>] [<tnfs-port>]`
 
 Default `<tnfs-server>` is `vexed4.alioth.net`
 Default `<tnfs-port>` is `16384`
@@ -32,6 +32,8 @@ Available commands:
 `get <remote filename> [<local filename>]` - download from tnfs server
 
 `put <local filename> [<remote filename>]` - upload to tnfs server
+
+`quit` - exit to DOS
 
 
 The original message from Author below:

@@ -1099,7 +1099,7 @@ if __name__ == "__main__":
             else:
                 print("Unknown command '%s'" % command)
             try:
-                command = input(cwd + "> ").strip().split()
+                command = input(cwd + "> ").strip().split(' ', 1)
             except (EOFError, KeyboardInterrupt):
                 print("quit")
                 command = ["quit"]

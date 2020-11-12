@@ -1085,7 +1085,7 @@ if __name__ == "__main__":
                     else:
                         print("Download failed")
                 else:
-                    print("Syntax: get <remote filename> [<local filename>]")
+                    print("Syntax: get <remote filename>[,<local filename>]")
             elif command[0] == "put":
                 if len(command) in (2, 3):
                     print("Uploading '%s'" % command[1])
@@ -1095,11 +1095,14 @@ if __name__ == "__main__":
                         data = f.read()
                     S.PutFile(destination, data)
                 else:
-                    print("Syntax: put <local filename> [<remote filename>]")
+                    print("Syntax: put <local filename>[,<remote filename>]")
             else:
                 print("Unknown command '%s'" % command)
             try:
                 command = input(cwd + "> ").strip().split(' ', 1)
+                if len(command) > 1 and ',' in command[-1]:
+                    c2 = command[-1].split(',', 1)
+                    command = [command[0], c2[0], c2[1]]
             except (EOFError, KeyboardInterrupt):
                 print("quit")
                 command = ["quit"]

@@ -29,9 +29,9 @@ Available commands:
 
 `rmdir <path>` - delete directory
 
-`get <remote filename> [<local filename>]` - download from tnfs server
+`get <remote filename>[,<local filename>]` - download from tnfs server
 
-`put <local filename> [<remote filename>]` - upload to tnfs server
+`put <local filename>[,<remote filename>]` - upload to tnfs server
 
 `quit` - exit to DOS
 
